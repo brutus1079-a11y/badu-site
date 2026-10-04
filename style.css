@@ -608,3 +608,6 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 @media (max-width: 900px){.panel{min-height:150px}.panel.on{min-height:420px}}
 .panel .ibox{width:60px!important;height:60px!important;min-height:0!important;border-radius:16px!important;padding:0!important;display:flex;align-items:center;justify-content:center}
 .panel .ibox svg{width:32px!important;height:32px!important}
+/* Bewertungs-Popup: geschlossen darf es keine Klicks abfangen (verdeckte auf Mobile das Offerte-Siegel) */
+.grp[hidden]{display:none!important}
+.grp:not(.on){pointer-events:none}
