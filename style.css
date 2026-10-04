@@ -591,3 +591,6 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 .two > div[style*="sticky"]{position:static!important}
 }
 @media (prefers-reduced-motion:reduce){.sbig,.cueline::after{animation:none}}
+
+/* Logo im Footer: Innenabstand im weissen Feld */
+.flogo,.ftlogo{padding:10px 14px!important}
