@@ -597,3 +597,12 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 .grsrc{display:flex;align-items:center;gap:8px}
 .grg{flex:none;width:18px;height:18px}
 .grgb{width:22px!important;height:22px!important}
+/* Lösungen: Karten mit Foto */
+.panel{position:relative;isolation:isolate;justify-content:flex-end;border-color:transparent!important;background:#0F5323!important;color:#fff!important}
+.panel .pimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.panel::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,34,15,0) 25%,rgba(6,34,15,.55) 60%,rgba(6,34,15,.92) 100%);transition:background .4s ease}
+.panel.on::before{background:linear-gradient(180deg,rgba(9,58,25,.15) 0%,rgba(9,58,25,.7) 45%,rgba(9,58,25,.96) 100%)}
+.panel:hover .pimg,.panel:focus-visible .pimg{transform:scale(1.04)}
+.panel .ibox,.panel.on .ibox{background:rgba(255,255,255,.94)}
+.panel .ptitle{color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.25)}
+@media (max-width: 900px){.panel{min-height:150px}.panel.on{min-height:420px}}
