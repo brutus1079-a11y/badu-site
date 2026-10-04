@@ -594,3 +594,5 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 
 /* Logo im Footer: Innenabstand im weissen Feld */
 .flogo,.ftlogo{padding:10px 14px!important}
+.grsrc{display:flex;align-items:center;gap:8px}
+.grg{flex:none;width:18px;height:18px}
