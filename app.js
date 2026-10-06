@@ -1,3 +1,5 @@
+function adSrc(){var q=new URLSearchParams(location.search),s=q.get('utm_source'),src='';if(s){src=(s==='google'&&q.get('utm_medium')==='cpc'?'Google Ads':s)+(q.get('utm_term')?' – Suchbegriff: '+q.get('utm_term'):'');try{sessionStorage.setItem('baduSrc',src)}catch(e){}}else{try{src=sessionStorage.getItem('baduSrc')||''}catch(e){}}return src?'\n\nQuelle: '+src:''}
+adSrc();
 
 (function(){
 var app=document.getElementById('app'),W3K='6086def3-5c54-4c48-ad82-3aaad23b4af7';if(W3K.indexOf('ACCESS_KEY')>-1)W3K='';
@@ -115,7 +117,7 @@ function bindForm(f){
   if(via!=='wa'&&W3K){
    var sb=f.querySelector('[data-via=mail]'),old=sb.innerHTML;sb.disabled=true;sb.textContent='Wird gesendet …';
    var em=f.querySelector('[type=email]').value.trim();
-   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3K,subject:'Offerte: '+f.Leistung.value+' ('+f.typ.value+')',from_name:'Website badufacility.ch',name:f.Name.value.trim(),email:em||undefined,replyto:em||undefined,message:body,botcheck:f.botcheck.checked})})
+   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3K,subject:'Offerte: '+f.Leistung.value+' ('+f.typ.value+')',from_name:'Website badufacility.ch',name:f.Name.value.trim(),email:em||undefined,replyto:em||undefined,message:body+adSrc(),botcheck:f.botcheck.checked})})
    .then(function(r){return r.json()}).then(function(d){if(!d||!d.success)throw 0;sb.disabled=false;sb.innerHTML=old;sendEnv(env,function(){showOk(true)})})
    .catch(function(){sb.disabled=false;sb.innerHTML=old;err.textContent='Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie uns an: 078 830 72 16.';err.hidden=false});
    return;
