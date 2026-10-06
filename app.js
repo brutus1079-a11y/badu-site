@@ -101,7 +101,7 @@ function bindForm(f){
  env.querySelector('.pocket').addEventListener('click',function(e){if(!env.classList.contains('is-open'))openIt(e)});
  [].forEach.call(f.querySelectorAll('input[name=typ]'),function(r){r.addEventListener('change',function(){firm.hidden=f.typ.value!=='Unternehmen'})});
  [].forEach.call(f.querySelectorAll('[data-via]'),function(b){b.addEventListener('click',function(){via=b.dataset.via})});
- var key=document.body.dataset.page||'home'; var map={"umzugsreinigung-zuerich": "Umzugsreinigung", "endreinigung-zuerich": "Endreinigung", "baureinigung-zuerich": "Baureinigung", "entsorgung-zuerich": "Entsorgung und Räumung"}; if(map[key]){f.querySelector('select').value=map[key]}
+ var key=document.body.dataset.page||'home'; var map={"umzugsreinigung-zuerich": "Umzugsreinigung", "endreinigung-zuerich": "Endreinigung", "baureinigung-zuerich": "Baureinigung", "entsorgung-zuerich": "Entsorgung und Räumung", "bueroreinigung-zuerich": "Büroreinigung"}; if(map[key]){f.querySelector('select').value=map[key]}
  f.addEventListener('submit',function(e){
   e.preventDefault();f.classList.add('tried');var err=f.querySelector('.ferr'),miss=[];
   [].forEach.call(f.querySelectorAll('[required]'),function(i){if(!i.value.trim())miss.push(i.closest('label').querySelector('.flt').textContent.replace(' *','').trim())});
