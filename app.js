@@ -1,4 +1,4 @@
-function adSrc(){var q=new URLSearchParams(location.search),s=q.get('utm_source'),src='';if(s){src=(s==='google'&&q.get('utm_medium')==='cpc'?'Google Ads':s)+(q.get('utm_term')?' – Suchbegriff: '+q.get('utm_term'):'');try{sessionStorage.setItem('baduSrc',src)}catch(e){}}else{try{src=sessionStorage.getItem('baduSrc')||''}catch(e){}}return src?'\n\nQuelle: '+src:''}
+function adSrc(){var q=new URLSearchParams(location.search),s=q.get('utm_source'),g=(q.get('gclid')||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,200),src='';if(s||g){src=(s?(s==='google'&&q.get('utm_medium')==='cpc'?'Google Ads':s)+(q.get('utm_term')?' – Suchbegriff: '+q.get('utm_term'):''):'Google Ads')+(g?' – Klick-ID: '+g:'');try{sessionStorage.setItem('baduSrc',src)}catch(e){}}else{try{src=sessionStorage.getItem('baduSrc')||''}catch(e){}}return src?'\n\nQuelle: '+src:''}
 adSrc();
 
 (function(){
@@ -113,7 +113,7 @@ function bindForm(f){
   var rows=['Kunde: '+f.typ.value].concat([].map.call(f.querySelectorAll('select,input:not([type=radio]):not([name=botcheck]),textarea'),function(i){return i.value.trim()&&!i.closest('[hidden]')?i.name+': '+i.value.trim()+(i.dataset.kt?' ('+i.dataset.kt+')':''):''}).filter(Boolean));
   var body='Guten Tag\n\nIch bitte um eine Offerte:\n\n'+rows.join('\n')+'\n\nFreundliche Grüsse';
   var url=via==='wa'?'https://wa.me/41788307216?text='+encodeURIComponent(body):'mailto:info@badufacility.ch?subject='+encodeURIComponent('Offerte: '+f.Leistung.value+' ('+f.typ.value+')')+'&body='+encodeURIComponent(body);
-  var showOk=function(sent){ok.querySelector('h3').textContent=sent?'Anfrage gesendet':'Anfrage vorbereitet';ok.querySelector('p').textContent=sent?'Danke! Ihre Anfrage ist bei uns angekommen. Wir melden uns mit Ihrer Offerte.':'Ihre Nachricht wurde in Ihrem E-Mail- oder WhatsApp-Programm geöffnet. Senden Sie sie dort ab – wir melden uns mit Ihrer Offerte.';ok.hidden=false;ok.setAttribute('tabindex','-1');ok.focus({preventScroll:true})};
+  var showOk=function(sent){if(window.baduTrack)window.baduTrack(sent?'generate_lead':'offer_prepared',{form:'offerte'});ok.querySelector('h3').textContent=sent?'Anfrage gesendet':'Anfrage vorbereitet';ok.querySelector('p').textContent=sent?'Danke! Ihre Anfrage ist bei uns angekommen. Wir melden uns mit Ihrer Offerte.':'Ihre Nachricht wurde in Ihrem E-Mail- oder WhatsApp-Programm geöffnet. Senden Sie sie dort ab – wir melden uns mit Ihrer Offerte.';ok.hidden=false;ok.setAttribute('tabindex','-1');ok.focus({preventScroll:true})};
   if(via!=='wa'&&W3K){
    var sb=f.querySelector('[data-via=mail]'),old=sb.innerHTML;sb.disabled=true;sb.textContent='Wird gesendet …';
    var em=f.querySelector('[type=email]').value.trim();
@@ -163,4 +163,29 @@ var GREV={"rating": 4.9, "count": 39, "url": "https://maps.app.goo.gl/Wn3R3nRprt
  if(GREV.autoOpen&&!sessionStorage.getItem('grseen')){setTimeout(function(){if(p.hidden){open();try{sessionStorage.setItem('grseen','1')}catch(x){}}},GREV.autoOpen)}
 })();
 
+})();
+
+/* Google Analytics 4 (Badu Facility, G-4SPCGPR4LT) nur nach ausdrücklicher Einwilligung.
+   Ohne «Analytics erlauben» wird nichts von Google geladen und kein Cookie gesetzt. */
+(function(){
+ var GA='G-4SPCGPR4LT',KEY='badu-consent-v1',loaded=false;
+ window.dataLayer=window.dataLayer||[];function gtag(){window.dataLayer.push(arguments)}
+ gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+ function read(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}}
+ function save(c){try{localStorage.setItem(KEY,JSON.stringify({choice:c,date:new Date().toISOString()}))}catch(e){}}
+ function load(){if(loaded)return;loaded=true;gtag('consent','update',{analytics_storage:'granted'});var t=document.createElement('script');t.async=true;t.src='https://www.googletagmanager.com/gtag/js?id='+GA;document.head.appendChild(t);gtag('js',new Date());gtag('config',GA,{allow_google_signals:false,allow_ad_personalization_signals:false})}
+ window.baduTrack=function(name,params){if(loaded)gtag('event',name,params||{})};
+ function open(){
+  if(document.querySelector('.ckb'))return;
+  var root=(document.body&&document.body.getAttribute('data-root'))||'./';
+  var b=document.createElement('aside');b.className='ckb';b.setAttribute('role','dialog');b.setAttribute('aria-labelledby','ckbT');
+  b.innerHTML='<p class="ckt" id="ckbT">Ihre Privatsphäre</p><p>Mit Ihrer Zustimmung verwenden wir Google Analytics, um zu sehen, wie unsere Website genutzt wird. Keine Werbe-Cookies, keine Formularinhalte. <a href="'+root+'cookies/">Mehr erfahren</a></p><div class="ckx"><button type="button" class="btn bo" data-c="essential">Nur notwendige</button><button type="button" class="btn by" data-c="analytics">Analytics erlauben</button></div>';
+  b.addEventListener('click',function(e){var k=e.target.closest('[data-c]');if(!k)return;var c=k.getAttribute('data-c');save(c);if(c==='analytics')load();else gtag('consent','update',{analytics_storage:'denied'});b.remove()});
+  document.body.appendChild(b);
+ }
+ function init(){
+  var c=read();if(c&&c.choice==='analytics')load();else if(!c)setTimeout(open,900);
+  [].forEach.call(document.querySelectorAll('.fbot span:last-child'),function(sp){var a=document.createElement('a');a.href='#';a.textContent='Cookie-Einstellungen';a.addEventListener('click',function(e){e.preventDefault();open()});sp.appendChild(document.createTextNode(' · '));sp.appendChild(a)});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

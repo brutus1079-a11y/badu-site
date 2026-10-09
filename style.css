@@ -618,3 +618,7 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 .hdr img,.flogo img,.lhead img,.mlogo img{width:auto}
 .fgrid2 h3{color:#fff;margin:0 0 12px;font-size:1em}
 .ftgrid h3{color:#FFFFFF;margin:0 0 12px;font-size:16px}
+
+.ckb{position:fixed;left:16px;bottom:16px;z-index:9999;max-width:420px;background:#fff;color:#1B2A1F;border:1px solid #DDE4D8;border-radius:14px;box-shadow:0 18px 40px rgba(16,48,26,.18);padding:18px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif}
+.ckb .ckt{font-weight:800;margin:0 0 6px;font-size:16px}.ckb p{margin:0 0 12px;font-size:14px;line-height:1.5}.ckx{display:flex;gap:8px}.ckx .btn{min-height:44px;font-size:15px;padding:0 14px;flex:1;width:auto}
+@media(max-width:600px){.ckb{left:12px;right:12px;bottom:12px;max-width:none}}
