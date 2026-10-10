@@ -189,3 +189,22 @@ var GREV={"rating": 4.9, "count": 39, "url": "https://maps.app.goo.gl/Wn3R3nRprt
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
+
+/* Bewegung beim Scrollen (10.10.2026): Elemente gleiten sanft herein, Hero-Foto mit leichter Parallaxe.
+   Nur mit JS und ohne «Bewegung reduzieren» – sonst bleibt alles sofort sichtbar. */
+(function(){
+ if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ function run(){
+  var sel='.scr:not(.hero) .h2,.scr:not(.hero) .lead,.scard,.tcard,.pl,.clist,.faqq';
+  var els=[].slice.call(document.querySelectorAll(sel)).filter(function(e){return e.getBoundingClientRect().top>innerHeight*.9});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;e.target.classList.add('ani-in');io.unobserve(e.target)})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  els.forEach(function(e){
+   var sib=[].filter.call(e.parentNode.children,function(c){return c.matches(sel)});
+   e.style.setProperty('--d',Math.min(sib.indexOf(e),6)*90+'ms');
+   e.classList.add('ani');io.observe(e);
+  });
+  var h=document.querySelector('.hero .hbg');
+  if(h){var t=false;addEventListener('scroll',function(){if(t)return;t=true;requestAnimationFrame(function(){var y=Math.min(scrollY,900);h.style.translate='0 '+(y*.18).toFixed(1)+'px';t=false})},{passive:true})}
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();

@@ -664,3 +664,15 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 .scard:hover .smore{gap:12px}
 @media (max-width:1100px){.scards{grid-template-columns:repeat(2,minmax(0,1fr))}.simg{aspect-ratio:16/11}}
 @media (max-width:640px){.scards{grid-template-columns:1fr;gap:14px}.simg{aspect-ratio:16/10}.sbody{padding:18px 18px 20px}}
+
+/* Bewegung (10.10.2026) */
+.ani{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.ani.ani-in{opacity:1;transform:none}
+.scard.ani.ani-in:hover{transform:translateY(-4px)}
+.hero .hkick,.hero .lead,.hero .hcta{animation:rv .9s cubic-bezier(.2,.7,.2,1) both}
+.hero .hkick{animation-delay:.1s}.hero .lead{animation-delay:.55s}.hero .hcta{animation-delay:.75s}
+.hero .hcta .by{position:relative;overflow:hidden}
+.hero .hcta .by::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));transform:skewX(-20deg);animation:shine 5s ease-in-out 2s infinite}
+@keyframes shine{0%,70%{left:-60%}100%{left:130%}}
+.hero .hcta .by .arrw{transition:transform .25s}.hero .hcta .by:hover .arrw{transform:translateX(4px)}
+@media (prefers-reduced-motion:reduce){.hero .hkick,.hero .lead,.hero .hcta,.hero .hcta .by::after{animation:none}}
