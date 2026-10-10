@@ -208,3 +208,21 @@ var GREV={"rating": 4.9, "count": 39, "url": "https://maps.app.goo.gl/Wn3R3nRprt
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
 })();
+
+/* Chat-Knopf lebendig (10.10.2026): Puls-Ring und Sprechblase «Hallo! Fragen?» nach ein paar Sekunden.
+   Die Blase lässt sich schliessen und erscheint dann in dieser Sitzung nicht mehr. */
+(function(){
+ function run(){
+  var wa=document.querySelector('.wa');if(!wa)return;
+  wa.classList.add('wa-live');
+  var off=false;try{off=sessionStorage.getItem('badu-wa-tip')==='0'}catch(e){}
+  if(off)return;
+  var tip=document.createElement('div');tip.className='watip';tip.setAttribute('role','status');
+  tip.innerHTML='<a href="'+wa.getAttribute('href')+'" target="_blank" rel="noopener"><span class="wahi">Hallo! <span class="wave" aria-hidden="true">👋</span></span><span class="watx">Fragen zur Reinigung? Schreiben Sie uns – wir antworten schnell.</span></a><button type="button" aria-label="Hinweis schliessen">×</button>';
+  document.body.appendChild(tip);
+  tip.querySelector('button').addEventListener('click',function(){tip.classList.remove('on');try{sessionStorage.setItem('badu-wa-tip','0')}catch(e){}});
+  setTimeout(function(){tip.classList.add('on')},4000);
+  setTimeout(function(){tip.classList.remove('on')},16000);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
