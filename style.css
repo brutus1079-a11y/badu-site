@@ -650,3 +650,17 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 .hero .veil{background:linear-gradient(180deg,rgba(11,64,25,0) 0%,rgba(11,64,25,0) 46%,rgba(11,64,25,.6) 62%,rgba(9,52,21,.9) 80%,rgba(8,51,26,.96) 100%)!important}
 .hero .htext .h1,.hero .htext .lead{text-shadow:0 2px 14px rgba(0,0,0,.35)}
 }
+
+/* Leistungs-Karten (10.10.2026): alle gleich gross, Foto ohne grünen Schleier */
+.scards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.scard{display:flex;flex-direction:column;background:#fff;border:1px solid #E4EAE4;border-radius:22px;overflow:hidden;text-decoration:none;color:#0D3B1A;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.scard:hover,.scard:focus-visible{transform:translateY(-4px);box-shadow:0 22px 44px rgba(10,40,18,.12)}
+.simg{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;display:block;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.scard:hover .simg{transform:scale(1.04)}
+.sbody{display:flex;flex-direction:column;gap:10px;padding:22px 22px 24px;flex:1}
+.stitle{font-size:21px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.sdesc{font-size:15px;line-height:1.55;color:#4A5A4E;flex:1}
+.smore{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:#0F5323;margin-top:4px;transition:gap .2s}
+.scard:hover .smore{gap:12px}
+@media (max-width:1100px){.scards{grid-template-columns:repeat(2,minmax(0,1fr))}.simg{aspect-ratio:16/11}}
+@media (max-width:640px){.scards{grid-template-columns:1fr;gap:14px}.simg{aspect-ratio:16/10}.sbody{padding:18px 18px 20px}}
