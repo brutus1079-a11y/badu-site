@@ -221,8 +221,22 @@ var GREV={"rating": 4.9, "count": 39, "url": "https://maps.app.goo.gl/Wn3R3nRprt
   tip.innerHTML='<a href="'+wa.getAttribute('href')+'" target="_blank" rel="noopener"><span class="wahi">Hallo! <span class="wave" aria-hidden="true">👋</span></span><span class="watx">Fragen zur Reinigung? Schreiben Sie uns – wir antworten schnell.</span></a><button type="button" aria-label="Hinweis schliessen">×</button>';
   document.body.appendChild(tip);
   tip.querySelector('button').addEventListener('click',function(){tip.classList.remove('on');try{sessionStorage.setItem('badu-wa-tip','0')}catch(e){}});
-  setTimeout(function(){tip.classList.add('on')},4000);
-  setTimeout(function(){tip.classList.remove('on')},16000);
+  function show(){tip.classList.add('on');setTimeout(function(){tip.classList.remove('on')},12000)}
+  // Auf dem Handy erst nach dem Scrollen, damit die Blase den Offerte-Button im Hero nicht verdeckt.
+  if(matchMedia('(max-width:760px)').matches){var f=function(){if(scrollY>innerHeight*.7){removeEventListener('scroll',f);setTimeout(show,800)}};addEventListener('scroll',f,{passive:true})}
+  else setTimeout(show,4500);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
+
+/* Hero-Video (10.10.2026): spielt einmal (4 s) und bleibt auf dem letzten Bild stehen.
+   Bei «Bewegung reduzieren» oder Datensparmodus bleibt das Standbild. */
+(function(){
+ function run(){
+  var v=document.querySelector('.hero .hvid');if(!v)return;
+  var save=navigator.connection&&navigator.connection.saveData;
+  if(save||matchMedia('(prefers-reduced-motion:reduce)').matches){v.removeAttribute('preload');return}
+  v.muted=true;var p=v.play();if(p&&p.catch)p.catch(function(){});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
 })();
