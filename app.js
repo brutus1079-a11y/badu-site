@@ -97,6 +97,8 @@ function sendEnv(env,done){
 function bindForm(f){
  var via='mail',firm=f.querySelector('.firm'),env=f.closest('.env'),wrap=env.parentNode,ok=wrap.querySelector('.fok');
  var openIt=function(e){if(e)e.stopPropagation();openEnv(env,function(){focusFirst(f)})};
+ /* 20.10.2026: Formular sofort offen – der geschlossene Umschlag hielt Besucher vom Ausfüllen ab (0 Anfragen aus Google Ads). */
+ env.classList.add('flap-open','is-open');env.querySelector('.letter').removeAttribute('inert');
  env.querySelector('.seal').addEventListener('click',openIt);
  env.querySelector('.lclose').addEventListener('click',function(e){e.stopPropagation();closeEnv(env)});
  env.addEventListener('keydown',function(e){if(e.key==='Escape'&&env.classList.contains('is-open'))closeEnv(env)});
