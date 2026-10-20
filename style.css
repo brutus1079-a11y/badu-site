@@ -723,3 +723,7 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
  body[data-mbar] #offerte .soc{display:none!important}
  body[data-mbar] .mbar a{font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif}
 }
+
+/* Google-Badge erst nach dem Scrollen (verdeckte den Hero-Knopf) */
+.grb{transition:transform .25s cubic-bezier(.22,1,.36,1),opacity .3s}
+.grb:not(.in){opacity:0;pointer-events:none;transform:translateY(14px)}
