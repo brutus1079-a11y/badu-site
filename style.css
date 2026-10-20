@@ -726,4 +726,4 @@ main{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 
 /* Google-Badge erst nach dem Scrollen (verdeckte den Hero-Knopf) */
 .grb{transition:transform .25s cubic-bezier(.22,1,.36,1),opacity .3s}
-.grb:not(.in){opacity:0;pointer-events:none;transform:translateY(14px)}
+.grb:not(.gshow){opacity:0;pointer-events:none;transform:translateY(14px)}

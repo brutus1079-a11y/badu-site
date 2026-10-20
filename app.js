@@ -153,7 +153,7 @@ var GREV={"rating": 4.9, "count": 43, "url": "https://maps.app.goo.gl/Wn3R3nRprt
  render(GREV.reviews);
  b.hidden=false;
  /* 20.10.2026: Badge erst nach dem Scrollen – auf Laptops verdeckte er den Knopf «Offerte anfordern». */
- var gin=function(){b.classList.toggle('in',scrollY>innerHeight*.5||!p.hidden)};gin();addEventListener('scroll',gin,{passive:true});
+ var gin=function(){b.classList.toggle('gshow',scrollY>innerHeight*.5||!p.hidden)};gin();addEventListener('scroll',gin,{passive:true});
  var loaded=false;
  function live(){if(loaded||!(GREV.placeId&&GREV.key))return;loaded=true;
   fetch('https://places.googleapis.com/v1/places/'+encodeURIComponent(GREV.placeId)+'?languageCode=de',{headers:{'X-Goog-Api-Key':GREV.key,'X-Goog-FieldMask':'rating,userRatingCount,reviews,googleMapsUri'}})
